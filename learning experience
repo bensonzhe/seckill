@@ -12,3 +12,9 @@
 5、show create table XXXXX\G   查看建表语句
 6、通过控制台连接mysql数据库：mysql -uroot -p
 
+二、DAO
+1、尽量将sql写在xml中，使用mapper自动实现dao接口；
+2、ingore排除主键冲突报的错，以便更好的逻辑设计；
+3、采用列别名映射类中的类；
+
+
