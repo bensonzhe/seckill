@@ -16,10 +16,15 @@
         <property name="password" value="${password}"/>
 
         <!--连接池私有属性-->
+        <!--最大连接数-->
         <property name="maxPoolSize" value="30"/>
+        <!--最小连接数-->
         <property name="minPoolSize" value="10"/>
+        <!--关闭连接后是否自动提交-->
         <property name="autoCommitOnClose" value="false"/>
+        <!--连接等待时间-->
         <property name="checkoutTimeout" value="1000"/>
+        <!--重试次数-->
         <property name="acquireRetryAttempts" value="2"/>
     </bean>
 
