@@ -9,6 +9,6 @@
         <setting name="useGeneratedKeys" value="true"/>
         <!--使用列别名替换列名，默认：true，将下划线转换为驼峰-->
         <setting name="useColumnLabel" value="true"/>
-        <setting name="mapUnderscoreCameCase" value="true"/>
+        <setting name="mapUnderscoreToCameCase" value="true"/>
     </settings>
 </configuration>
