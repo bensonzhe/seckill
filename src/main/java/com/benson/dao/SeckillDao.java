@@ -1,6 +1,7 @@
 package com.benson.dao;
 
 import com.benson.entity.Seckill;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ public interface SeckillDao {
      * @param killTime
      * @return
      */
-    int reduceNumber(Long seckillId , Date killTime);
+    int reduceNumber(@Param("seckillId") Long seckillId ,@Param("killTime") Date killTime);
 
     /**
      * 根据主键，查询单个
@@ -31,5 +32,5 @@ public interface SeckillDao {
      * @param limit
      * @return
      */
-    List queryAll(int offset , int limit );
+    List queryAll(@Param("offset") int offset ,@Param("limit") int limit );
 }
