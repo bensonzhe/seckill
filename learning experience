@@ -12,7 +12,7 @@
 5、show create table XXXXX\G   查看建表语句
 6、通过控制台连接mysql数据库：mysql -uroot -p
 
-二、DAO
+二、Dao
 1、尽量将sql写在xml中，使用mapper自动实现dao接口；
 2、ingore排除主键冲突报的错，以便更好的逻辑设计；
 3、采用列别名映射类中的类；
@@ -20,4 +20,7 @@
 5、classpath在maven中表示java目录和resources目录；
 6、在property文件中，出现了username，password无法识别的问题，换成name、pwd等即可运行，
    猜想是关键字冲突，需要注意；
+7、不要夹杂逻辑程序
 
+三、Service
+1、dto的使用技巧；
