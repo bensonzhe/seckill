@@ -17,4 +17,5 @@
 2、ingore排除主键冲突报的错，以便更好的逻辑设计；
 3、采用列别名映射类中的类；
 4、mybatis的@Param注解；
+5、classpath在maven中表示java目录和resources目录；
 

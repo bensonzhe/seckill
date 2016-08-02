@@ -10,17 +10,25 @@ import java.util.Date;
  */
 
 public class SuccessKilled {
-    private long skilledId;
+    private long seckillId;
 
-    private long userphone;
+    private long userPhone;
 
     private short status;
 
-    private Date createDate;
+    private Date createTime;
 
     //变通
     //意味着 多对一
-    private  Seckill seckill;
+    private Seckill seckill;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public Seckill getSeckill() {
         return seckill;
@@ -30,20 +38,12 @@ public class SuccessKilled {
         this.seckill = seckill;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public long getSeckillId() {
+        return seckillId;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public long getSkilledId() {
-        return skilledId;
-    }
-
-    public void setSkilledId(long skilledId) {
-        this.skilledId = skilledId;
+    public void setSeckillId(long seckillId) {
+        this.seckillId = seckillId;
     }
 
     public short getStatus() {
@@ -54,21 +54,22 @@ public class SuccessKilled {
         this.status = status;
     }
 
-    public long getUserphone() {
-        return userphone;
+    public long getUserPhone() {
+        return userPhone;
     }
 
-    public void setUserphone(long userphone) {
-        this.userphone = userphone;
+    public void setUserPhone(long userPhone) {
+        this.userPhone = userPhone;
     }
 
     @Override
     public String toString() {
         return "SuccessKilled{" +
-                "createDate=" + createDate +
-                ", skilledId=" + skilledId +
-                ", userphone=" + userphone +
+                "createTime=" + createTime +
+                ", seckillId=" + seckillId +
+                ", userPhone=" + userPhone +
                 ", status=" + status +
+                ", seckill=" + seckill +
                 '}';
     }
 }
