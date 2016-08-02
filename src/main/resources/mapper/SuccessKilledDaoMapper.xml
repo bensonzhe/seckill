@@ -12,7 +12,7 @@
     <select id="queryByIdWithSeckill" resultType="SuccessKilled">
         <!-- 采用列别名法映射属性-->
         select
-        sk.seckil_id,
+        sk.seckill_id,
         sk.user_phone,
         sk.create_time,
         sk.status,
@@ -23,7 +23,7 @@
         s.end_time "seckill.end_time",
         s.create_time "seckill.create_time"
         from success_killed sk
-        inner join seckill s on sk.skill_id = s.skill_id
-        where sk.seckill_id = #{seckillId}
+        inner join seckill s on sk.seckill_id = s.seckill_id
+        where sk.seckill_id = #{seckillId} and sk.user_phone=#{userPhone}
     </select>
 </mapper>

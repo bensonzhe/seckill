@@ -18,4 +18,6 @@
 3、采用列别名映射类中的类；
 4、mybatis的@Param注解；
 5、classpath在maven中表示java目录和resources目录；
+6、在property文件中，出现了username，password无法识别的问题，换成name、pwd等即可运行，
+   猜想是关键字冲突，需要注意；
 

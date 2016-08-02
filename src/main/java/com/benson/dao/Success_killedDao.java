@@ -18,8 +18,8 @@ public interface Success_killedDao {
 
     /**
      * 根据秒杀id查询成功秒杀记录，并携带秒杀产品对象
-     * @param SeckillId
+     * @param userPhone
      * @return
      */
-    SuccessKilled queryByIdWithSeckill(Long seckillId);
+    SuccessKilled queryByIdWithSeckill(@Param("seckillId") Long seckillId, @Param("userPhone") Long userPhone);
 }
