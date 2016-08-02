@@ -20,7 +20,8 @@
 5、classpath在maven中表示java目录和resources目录；
 6、在property文件中，出现了username，password无法识别的问题，换成name、pwd等即可运行，
    猜想是关键字冲突，需要注意；
-7、不要夹杂逻辑程序
+7、不要夹杂逻辑程序；
+8、注意mysql如果有时间格式，需要小心是不是按照当前时间更新；
 
 三、Service
 1、dto的使用技巧；

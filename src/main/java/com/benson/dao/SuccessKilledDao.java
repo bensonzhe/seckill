@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * Created by yaz on 2016/7/31.
  */
-public interface Success_killedDao {
+public interface SuccessKilledDao {
 
     /**
      * 插入记录，可过滤重复

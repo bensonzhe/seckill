@@ -27,15 +27,16 @@ public class Exposer {
         this.seckillId = seckillId;
     }
 
-    public Exposer(long end, boolean exposed, long now, long start) {
-        this.end = end;
-        this.exposed = exposed;
-        this.now = now;
-        this.start = start;
-    }
-
     public Exposer(long seckillId, boolean exposed) {
         this.seckillId = seckillId;
         this.exposed = exposed;
+    }
+
+    public Exposer(boolean exposed, long now, long end, long start, long seckillId) {
+        this.exposed = exposed;
+        this.now = now;
+        this.end = end;
+        this.start = start;
+        this.seckillId = seckillId;
     }
 }

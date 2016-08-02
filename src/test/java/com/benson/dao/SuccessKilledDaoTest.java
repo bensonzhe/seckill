@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by yaz on 2016/8/2.
  */
@@ -18,7 +16,7 @@ import static org.junit.Assert.*;
 )
 public class SuccessKilledDaoTest {
     @Autowired
-    private Success_killedDao successKilledDao;
+    private SuccessKilledDao successKilledDao;
 
     @Test
     public void insertSuccessKilled() throws Exception {
