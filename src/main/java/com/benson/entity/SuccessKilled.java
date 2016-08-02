@@ -9,7 +9,7 @@ import java.util.Date;
  * @create 2016-07-31 16:52
  */
 
-public class Success_killed {
+public class SuccessKilled {
     private long skilledId;
 
     private long userphone;
@@ -64,7 +64,7 @@ public class Success_killed {
 
     @Override
     public String toString() {
-        return "Success_killed{" +
+        return "SuccessKilled{" +
                 "createDate=" + createDate +
                 ", skilledId=" + skilledId +
                 ", userphone=" + userphone +

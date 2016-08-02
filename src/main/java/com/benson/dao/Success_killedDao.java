@@ -1,6 +1,6 @@
 package com.benson.dao;
 
-import com.benson.entity.Success_killed;
+import com.benson.entity.SuccessKilled;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -21,5 +21,5 @@ public interface Success_killedDao {
      * @param SeckillId
      * @return
      */
-    Success_killed queryByIdWithSeckill(Long seckillId);
+    SuccessKilled queryByIdWithSeckill(Long seckillId);
 }
