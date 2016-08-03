@@ -29,3 +29,13 @@
 2、异常的使用；
 3、数据字典尽量使用枚举；
 4、事务方面：建议采用@Transactional方式；
+
+四、Web
+1、restful风格：
+get:查询
+post:修改/新增
+put:新增
+delete:删除
+※post与put区别不大，可用幂等性来区分，post操作属非幂等，put幂等操作
+※URL设计：/模块/资源/{标示id}/集合... eg: /user/{uid}/friends
+2、

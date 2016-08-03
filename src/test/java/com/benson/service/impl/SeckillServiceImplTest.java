@@ -3,7 +3,6 @@ package com.benson.service.impl;
 import com.benson.dto.Exposer;
 import com.benson.dto.SeckillExecution;
 import com.benson.entity.Seckill;
-import com.benson.exception.SeckillException;
 import com.benson.service.SeckillService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 /**
  * Created by yaz on 2016/8/3.
