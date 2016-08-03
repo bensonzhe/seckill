@@ -14,6 +14,8 @@ import com.benson.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
@@ -25,7 +27,8 @@ import java.util.List;
  * @author yaz
  * @create 2016-08-02 21:59
  */
-
+//如果不知道是什么功能，可以使用 @Component，代表是spring的一个组件
+@Service
 public class SeckillServiceImpl implements SeckillService {
     private Logger log = LoggerFactory.getLogger(this.getClass());
     //盐值加密
@@ -76,9 +79,17 @@ public class SeckillServiceImpl implements SeckillService {
         return md5;
     }
 
+    /**
+     * 使用注解的优点：
+     * 1、开发团队达成约定：明确事务编程；
+     * 2、保证事务代码执行时间尽可能短；
+     * 3、不要穿插其他网络操作，如RPC/HTTP请求，或者剥离到事务方法外；
+     * 4、不是所有方法都需要事务，如查询或单挑数据的增删改；
+     */
+    @Transactional
     public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5) throws SeckillException {
         //1、验证md5；
-        if (md5 == null || md5.equals(getMD5(seckillId))) {
+        if (md5 == null || !md5.equals(getMD5(seckillId))) {
             throw new SeckillException("seckill data rewrite!");
         }
         //2、执行秒杀； 减库存，增加秒杀明细
