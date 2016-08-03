@@ -1,19 +1,21 @@
 package com.benson.web;
 
 import com.benson.dto.Exposer;
+import com.benson.dto.SeckillExecution;
 import com.benson.dto.SeckillResult;
 import com.benson.entity.Seckill;
+import com.benson.enums.SeckillStatusEnum;
+import com.benson.exception.RepeatKillExpection;
+import com.benson.exception.SeckillCloseExpection;
 import com.benson.service.SeckillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,5 +65,39 @@ public class SeckillController {
             result = new SeckillResult<Exposer>(e.getMessage(), false);
         }
         return result;
+    }
+
+    @RequestMapping(value = "/{seckillId}/{md5}/execution",
+            method = RequestMethod.POST,
+            produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public SeckillResult<SeckillExecution> execute(@PathVariable("seckillId") long seckillId,
+                                                   @PathVariable("md5") String md5,
+                                                   @CookieValue(value = "killPhone", required = false) Long userPhone) {
+        SeckillResult<SeckillExecution> result;
+        if (userPhone == null) {
+            return new SeckillResult<SeckillExecution>("未注册", false);
+        }
+        try {
+            SeckillExecution exception = seckillService.executeSeckill(seckillId, userPhone, md5);
+            return new SeckillResult<SeckillExecution>(exception, true);
+        } catch (SeckillCloseExpection seckillCloseExpection) {
+            SeckillExecution exception = new SeckillExecution(seckillId, SeckillStatusEnum.END);
+            return new SeckillResult<SeckillExecution>(exception, false);
+        } catch (RepeatKillExpection repeatKillExpection) {
+            SeckillExecution exception = new SeckillExecution(seckillId, SeckillStatusEnum.REPEAT_KILL);
+            return new SeckillResult<SeckillExecution>(exception, false);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            SeckillExecution exception = new SeckillExecution(seckillId, SeckillStatusEnum.INNER_ERROR);
+            return new SeckillResult<SeckillExecution>(exception, false);
+        }
+    }
+
+    @RequestMapping(value = "/time/now", method = RequestMethod.GET)
+    @ResponseBody
+    public SeckillResult<Long> time() {
+        Date date = new Date();
+        return new SeckillResult<Long>(date.getTime(), true);
     }
 }
