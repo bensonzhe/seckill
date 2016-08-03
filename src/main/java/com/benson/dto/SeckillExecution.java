@@ -1,6 +1,7 @@
 package com.benson.dto;
 
 import com.benson.entity.SuccessKilled;
+import com.benson.enums.SeckillStatusEnum;
 
 /**
  * 秒杀后的结果
@@ -17,16 +18,16 @@ public class SeckillExecution {
     private String stateInfo;
     private SuccessKilled successKilled;
 
-    public SeckillExecution(long seckillId, String stateInfo, int status, SuccessKilled successKilled) {
+    public SeckillExecution(long seckillId, SeckillStatusEnum statusEnum, SuccessKilled successKilled) {
         this.seckillId = seckillId;
-        this.stateInfo = stateInfo;
-        this.status = status;
+        this.stateInfo = statusEnum.getStateInfo();
+        this.status = statusEnum.getState();
         this.successKilled = successKilled;
     }
 
-    public SeckillExecution(long seckillId, String stateInfo, int status) {
+    public SeckillExecution(long seckillId, SeckillStatusEnum statusEnum) {
         this.seckillId = seckillId;
-        this.stateInfo = stateInfo;
-        this.status = status;
+        this.stateInfo = statusEnum.getStateInfo();
+        this.status = statusEnum.getState();
     }
 }

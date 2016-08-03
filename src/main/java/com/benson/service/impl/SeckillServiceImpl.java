@@ -5,6 +5,10 @@ import com.benson.dao.SuccessKilledDao;
 import com.benson.dto.Exposer;
 import com.benson.dto.SeckillExecution;
 import com.benson.entity.Seckill;
+import com.benson.entity.SuccessKilled;
+import com.benson.enums.SeckillStatusEnum;
+import com.benson.exception.RepeatKillExpection;
+import com.benson.exception.SeckillCloseExpection;
 import com.benson.exception.SeckillException;
 import com.benson.service.SeckillService;
 import org.slf4j.Logger;
@@ -61,6 +65,11 @@ public class SeckillServiceImpl implements SeckillService {
         return new Exposer(true, md5, seckillId);
     }
 
+    /**
+     * md5加密
+     * 测试：1000
+     * 加密后：019abd9848ab36c30a75bbd92ce7821a
+     */
     private String getMD5(Long seckillId) {
         String base = seckillId + "/" + slat;
         String md5 = DigestUtils.md5DigestAsHex(base.getBytes());
@@ -68,6 +77,35 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     public SeckillExecution executeSeckill(long seckillId, long userPhone, String md5) throws SeckillException {
-        return null;
+        //1、验证md5；
+        if (md5 == null || md5.equals(getMD5(seckillId))) {
+            throw new SeckillException("seckill data rewrite!");
+        }
+        //2、执行秒杀； 减库存，增加秒杀明细
+        Date now = new Date();
+        //减库存
+        try {
+            int updateCount = seckillDao.reduceNumber(seckillId, now);
+            if (updateCount <= 0) {
+                throw new SeckillCloseExpection("seckill is close!");
+            } else {
+                int insertCount = successKilledDao.insertSuccessKilled(seckillId, userPhone);
+                if (insertCount <= 0) {
+                    throw new RepeatKillExpection("seckill repeat!");
+                } else {
+                    SuccessKilled successKilled = successKilledDao.queryByIdWithSeckill(seckillId, userPhone);
+                    return new SeckillExecution(seckillId, SeckillStatusEnum.SUCCESS, successKilled);
+                }
+            }
+        } catch (SeckillCloseExpection seckillCloseExpection) {
+            throw seckillCloseExpection;
+        } catch (RepeatKillExpection repeatKillExpection) {
+            throw repeatKillExpection;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            //编译期异常转换为运行时异常
+            throw new SeckillException("seckill inner error:" + e.getMessage());
+        }
     }
+
 }
