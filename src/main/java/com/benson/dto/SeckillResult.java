@@ -1,5 +1,7 @@
 package com.benson.dto;
 
+import java.io.Serializable;
+
 /**
  * VO，封装结果
  *
@@ -7,7 +9,7 @@ package com.benson.dto;
  * @create 2016-08-03 18:03
  */
 
-public class SeckillResult<T> {
+public class SeckillResult<T> implements Serializable {
     private boolean success;
     private T data;
     private String error;

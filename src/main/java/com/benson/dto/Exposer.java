@@ -1,5 +1,7 @@
 package com.benson.dto;
 
+import java.io.Serializable;
+
 /**
  * 暴露秒杀接口dto
  *

@@ -8,6 +8,7 @@ import com.benson.enums.SeckillStatusEnum;
 import com.benson.exception.RepeatKillExpection;
 import com.benson.exception.SeckillCloseExpection;
 import com.benson.service.SeckillService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class SeckillController {
     @Autowired
     private SeckillService seckillService;
 
-    @RequestMapping(name = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(Model model) {
         List list = seckillService.getSeckillList();
         model.addAttribute("list", list);
@@ -48,28 +49,30 @@ public class SeckillController {
         if (s == null) {
             return "forward:/seckill/list";
         }
+        model.addAttribute("seckill", s);
         return "detail";
     }
 
     @RequestMapping(value = "/{seckillId}/exposer",
-            method = RequestMethod.POST,
-            produces = {"application/json;charset=UTF-8"})
+            method = RequestMethod.GET)
     @ResponseBody
-    public SeckillResult<Exposer> exposer(long seckillId) {
+    public SeckillResult<Exposer> exposer(@PathVariable("seckillId") long seckillId) {
         SeckillResult<Exposer> result;
         try {
             Exposer exposer = seckillService.exportSeckillUrl(seckillId);
             result = new SeckillResult<Exposer>(exposer, true);
+            System.out.println(result.isSuccess() + "<<<<<<<<<<<<<");
+            return result;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             result = new SeckillResult<Exposer>(e.getMessage(), false);
+            return result;
         }
-        return result;
+
     }
 
     @RequestMapping(value = "/{seckillId}/{md5}/execution",
-            method = RequestMethod.POST,
-            produces = {"application/json;charset=UTF-8"})
+            method = RequestMethod.POST)
     @ResponseBody
     public SeckillResult<SeckillExecution> execute(@PathVariable("seckillId") long seckillId,
                                                    @PathVariable("md5") String md5,

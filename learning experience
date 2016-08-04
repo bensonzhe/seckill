@@ -38,4 +38,12 @@ put:新增
 delete:删除
 ※post与put区别不大，可用幂等性来区分，post操作属非幂等，put幂等操作
 ※URL设计：/模块/资源/{标示id}/集合... eg: /user/{uid}/friends
-2、
+
+五、前台
+1、jsp页面等的共同抽取；
+2、可以在${}此类表达中，直接将date类型转换为毫秒，方便js使用；
+3、学习到了很多新东西，如：js代码风格、bootstrap、cdn代码库、
+jquery-cookie、jquery-countDown等等，同时也感受到了自己知识的匮乏，
+对js有了不一样的认识，也产生了浓厚的兴趣，预计会在今后抽出一段时间专门
+学习一下js；
+
