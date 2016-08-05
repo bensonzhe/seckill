@@ -15,46 +15,45 @@ var seckill = {
     },
     //秒杀逻辑
     handleSeckill: function (seckillId, node) {
-        // node.hide()
-        //     .html('<button class="btn btn-primary btn-log" id="killBtn">开始秒杀</button>');
+        node.hide()
+            .html('<button class="btn btn-primary btn-log" id="killBtn">开始秒杀</button>');
         $.post(seckill.URL.exposer(seckillId), {}, function (result) {
-            alert("success");
+            //在回调函数中，执行逻辑
+            if (result && result['success']) {
+                var exposer = result['data'];
+                if (exposer['exposed']) {
+                    //开启秒杀
+                    var md5 = exposer['md5'];
+                    var killUrl = seckill.URL.execution(seckillId, md5);
+                    //绑定一次
+                    $("#killBtn").one('click', function () {
+                        //绑定执行秒杀的操作
+                        //1、先禁用
+                        $(this).addClass("disabled");
+                        //2、发送请求
+                        $.post(killUrl, {}, function (result) {
+                            if (result && result['success']) {
+                                var killResutl = result['data'];
+                                var status = killResutl['status'];
+                                var stateInfo = killResutl['stateInfo'];
+                                //3、显示秒杀结果
+                                node.html('<span class="label label-success">' + stateInfo + '</span>');
+                            }
+                        });
+                    });
+                    node.show();
+                } else {
+                    //未开启秒杀，防止客户端的时间比服务器走的快
+                    var now = exposer['now'];
+                    var start = exposer['start'];
+                    var end = exposer['end'];
+                    //重新计时
+                    seckill.countDown(seckillId, now, start, end);
+                }
+            } else {
+                console.log("result:" + result);
+            }
         });
-        //     //在回调函数中，执行逻辑
-        //     if (result && result['success']) {
-        //         var exposer = result['data'];
-        //         if (exposer['exposer']) {
-        //             //开启秒杀
-        //             var md5 = exposer['md5'];
-        //             var killUrl = seckill.URL.execution(seckillId, md5);
-        //             $("#killBtn").one('click', function () {
-        //                 //绑定执行秒杀的操作
-        //                 //1、先禁用
-        //                 $(this).addClass("disable");
-        //                 //2、发送请求
-        //                 $.post(killUrl, {}, function (result) {
-        //                     if (result && result['success']) {
-        //                         var killResutl = result['data'];
-        //                         var status = killResutl['status'];
-        //                         var stateInfo = killResutl['stateInfo'];
-        //                         //3、显示秒杀结果
-        //                         node.html('<span class="label label-success">' + stateInfo + '</span>');
-        //                     }
-        //                 });
-        //             });
-        //             node.show();
-        //         } else {
-        //             //未开启秒杀，防止客户端的时间比服务器走的快
-        //             var now = exposer['now'];
-        //             var start = exposer['start'];
-        //             var end = exposer['end'];
-        //             //重新计时
-        //             seckill.countDown(seckillId, now, start, end);
-        //         }
-        //     } else {
-        //         console.log("result:" + result);
-        //     }
-        // });
     },
     //验证手机号
     validatePhone: function (phone) {

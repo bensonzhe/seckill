@@ -40,4 +40,36 @@ public class SeckillExecution {
                 ", successKilled=" + successKilled +
                 '}';
     }
+
+    public long getSeckillId() {
+        return seckillId;
+    }
+
+    public void setSeckillId(long seckillId) {
+        this.seckillId = seckillId;
+    }
+
+    public String getStateInfo() {
+        return stateInfo;
+    }
+
+    public void setStateInfo(String stateInfo) {
+        this.stateInfo = stateInfo;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public SuccessKilled getSuccessKilled() {
+        return successKilled;
+    }
+
+    public void setSuccessKilled(SuccessKilled successKilled) {
+        this.successKilled = successKilled;
+    }
 }

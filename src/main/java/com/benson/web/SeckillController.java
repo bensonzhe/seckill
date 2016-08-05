@@ -8,7 +8,6 @@ import com.benson.enums.SeckillStatusEnum;
 import com.benson.exception.RepeatKillExpection;
 import com.benson.exception.SeckillCloseExpection;
 import com.benson.service.SeckillService;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +52,15 @@ public class SeckillController {
         return "detail";
     }
 
+
     @RequestMapping(value = "/{seckillId}/exposer",
-            method = RequestMethod.GET)
+            method = RequestMethod.POST)
     @ResponseBody
-    public SeckillResult<Exposer> exposer(@PathVariable("seckillId") long seckillId) {
-        SeckillResult<Exposer> result;
+    public SeckillResult exposer(@PathVariable("seckillId") long seckillId) {
+        SeckillResult result;
         try {
             Exposer exposer = seckillService.exportSeckillUrl(seckillId);
             result = new SeckillResult<Exposer>(exposer, true);
-            System.out.println(result.isSuccess() + "<<<<<<<<<<<<<");
             return result;
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
