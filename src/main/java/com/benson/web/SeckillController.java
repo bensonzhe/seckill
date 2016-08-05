@@ -85,14 +85,14 @@ public class SeckillController {
             return new SeckillResult<SeckillExecution>(exception, true);
         } catch (SeckillCloseExpection seckillCloseExpection) {
             SeckillExecution exception = new SeckillExecution(seckillId, SeckillStatusEnum.END);
-            return new SeckillResult<SeckillExecution>(exception, false);
+            return new SeckillResult<SeckillExecution>(exception, true);
         } catch (RepeatKillExpection repeatKillExpection) {
             SeckillExecution exception = new SeckillExecution(seckillId, SeckillStatusEnum.REPEAT_KILL);
-            return new SeckillResult<SeckillExecution>(exception, false);
+            return new SeckillResult<SeckillExecution>(exception, true);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             SeckillExecution exception = new SeckillExecution(seckillId, SeckillStatusEnum.INNER_ERROR);
-            return new SeckillResult<SeckillExecution>(exception, false);
+            return new SeckillResult<SeckillExecution>(exception, true);
         }
     }
 
