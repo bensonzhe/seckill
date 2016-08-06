@@ -53,6 +53,7 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     public Exposer exportSeckillUrl(long seckillId) {
+        //使用redis缓存起来，降低数据库压力
         Seckill seckill = this.getSeckillById(seckillId);
         if (null == seckill) {
             return new Exposer(seckillId, false);
